@@ -1,0 +1,35 @@
+$sm: 'screen and (min-width: 568px)'; // 568px
+$ism: 'screen and (max-width: 568px)'; // 568px
+$md: 'screen and (min-width: 768px)'; // 768px
+$lg: 'screen and (min-width: 1024px)'; // 1024px
+$xl: 'screen and (min-width: 1280px)'; // 1280px
+$xxl: 'screen and (min-width: 1600px)'; // 1600px
+//Enforced styles for simple layout
+#DOCSIE__ROOT {
+    .pure-docsie:not(.ready) {
+        .docsie-search {
+            display: none;
+        }
+    }
+    .docsie-search {
+        .docsie-search-form {
+            input,
+            .docsie-search-count,
+            .docsie-search-clear {
+                display: none;
+            }
+            &.expanded {
+                input,
+                .docsie-search-count,
+                .docsie-search-clear {
+                    display: inline;
+                }
+            }
+        }
+        .docsie-back-to-search-results {
+            position: fixed;
+            top: 4px;
+            left: 50%;
+        }
+    }
+}

@@ -1,0 +1,1 @@
+export const DEBUG = window["_docsie"] && window["Docsie"]["debug"];
