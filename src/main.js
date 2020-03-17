@@ -2,16 +2,15 @@ import "./polyfills";
 import { render } from "inferno";
 import { autobind } from "decorators";
 import * as Reveal from "reveal.js";
-import css1 from "./styles/reveal-css/reveal.scss";
-import css2 from "./styles/reveal-css/theme/white.scss";
+// import css1 from "./styles/reveal-css/reveal.scss";
+// import css2 from "./styles/reveal-css/theme/white.scss";
 import css3 from "./styles/presentation.scss";
 
-import * as Config from "./config";
+import {config} from "./config";
 
 import { Paragraph, Blockquote, Title, Header, Figure, List, Code, Code2, Dict, Gist, Video, Footer } from "./views/fragments";
 
-
-import { articleEl } from "./views/article";
+import { LoadCss, unload_stylesheet } from "./presentation-utils/reveal-utils";
 
 class main {
   $container = null;
@@ -23,8 +22,23 @@ class main {
     Docsie.document.onChange(this.onRender);
   }
   @autobind
+  getMappedSectionData(sections, chunk_size) {
+      var index = 0;
+      var arrayLength = sections.length;
+      var tempArray = [];
+      
+      for (index = 0; index < arrayLength; index += chunk_size) {
+          let chunk = sections.slice(index, index+chunk_size);
+          tempArray.push(chunk);
+      }
+  
+      return tempArray;
+  }
+  @autobind
   onPresentMode(e) {
-    console.log("on Present mode");
+    // LoadCss related to reveal
+    LoadCss(config.revealjs.css);
+    LoadCss(config.revealjs.theme);
     e.stopPropagation();
     // hide html page
     document.getElementsByClassName("pure-docsie-container")[0].style.display = "none";
@@ -34,7 +48,6 @@ class main {
     document.getElementsByClassName("reveal")[0].style.display = "block";
     // show pages
     document.getElementsByClassName("slides")[0].style.display = "block";
-    console.log("Reveal.default", Reveal.default);
     Reveal.default.initialize({
       width: "100%",
       height: "100%",
@@ -44,15 +57,14 @@ class main {
       progress: false,
     });
 
-    // create exit button and prepend to slides element
+    // create exit button and append to body
     let btn = document.createElement("BUTTON");
     btn.innerHTML = "EXIT";
     btn.setAttribute("class", "exit-btn")
     document.body.appendChild(btn);
 
     // attach listener
-    btn.addEventListener("click", function(){
-      console.log("about to hide slides");
+    btn.addEventListener("click", () => {
       // hide pages
       document.getElementsByClassName("reveal")[0].style.display = "none";
       // hide exit button
@@ -60,7 +72,8 @@ class main {
       // show html content
       document.getElementsByClassName("pure-docsie-container")[0].style.display = "block";
       // show presentation button
-    document.getElementById("prs-btn").style.display = "block";
+      document.getElementById("prs-btn").style.display = "block";
+      unload_stylesheet(document.getElementById("revealcss"));
     });
   }
   @autobind
@@ -92,8 +105,19 @@ class main {
         btn.addEventListener("click", (($event) => this.onPresentMode($event)));
         $el.prepend(this.$btnContainer = btn);
 
-        console.log("this.articles", this.articles);
-
+        // each slide should have 2 items from sections array
+        // combine all sub array from sections array
+        // create sub array such that it contains 4 items for slide view
+        let sections = [];
+        this.articles.forEach(article => {
+          article.sections.forEach(section => {
+            section.forEach(data => {
+              sections.push(data); // push all sub array section data into sections array
+            })
+          });
+          article.sections = this.getMappedSectionData(sections, 3);
+          sections = [];
+        });
         // create slides wrapped in section tag for presentation
         let presentation = this.articles.map((article, i) => {
           return <section class="scrollable">
@@ -104,10 +128,11 @@ class main {
                 <section>
                   <header id="section-page-header" className="docsie-header">
                   <div className="docsie-header-conatiner" role="presentation">
-                    {
+                    {/* TODO: HANLD EARTICLEICON DISPLAY */}
+                    {/* {
                       Config.app.articleIcon &&
                         article.icon ? <div className="docsie-header-icon" style={{ "background-image": `url(${article.icon})` }} /> : null
-                    }
+                    } */}
                     <h1 className="docsie-title">
                       {article.name}
                     </h1>
@@ -115,12 +140,13 @@ class main {
                       article.description &&
                       <p className="docsie-subtitle">{article.description}</p>
                     }
-                    {
+                    {/* TODO: HANDLE ARTICLE META DATA */}
+                    {/* {
                       Config.app.articleMeta ? <div className="docsie-header-meta">
                         <span className="docsie-header-meta-version">{version.name}&nbsp;({version.number})</span>&nbsp;
               <span className="docsie-header-meta-date">{formatDate(article.lastUpdated)}</span>
                       </div> : null
-                    }
+                    } */}
                   </div>
                   <div className="docsie-header-plugin-bar" />
                 </header>
