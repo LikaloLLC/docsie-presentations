@@ -1,3 +1,4 @@
+import {config} from "../../config";
 const MediaTypes = { NULL: 0, IMAGE: 1, EMBED: 2, VIDEO: 3 };
 function getMediaType(src) {
   switch (true) {
@@ -11,7 +12,7 @@ function getMediaType(src) {
       return MediaTypes.IMAGE;
   }
 }
-const None = () => <img src={Docsie.urls.placeholder} alt="No image" />
+const None = () => <img src={config.urls.placeholder} alt="No image" />
 const Youtube = ({
   width,
   height,
@@ -34,7 +35,7 @@ const Image = ({
   width={width || "auto"}
   height={height || "auto"}
   src={src}
-  onError={(e) => e.target.src = Docsie.urls.placefalure}
+  onError={(e) => e.target.src = config.urls.placefalure}
   alt={label || ""} /></picture>;
 const Fragment = ({
   id,
