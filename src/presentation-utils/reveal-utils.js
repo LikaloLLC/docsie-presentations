@@ -4,10 +4,11 @@ export function unload_stylesheet(DOMelement){
   }
   
 export function LoadCss(url) {
-    var link = document.createElement("link");
-    link.type = "text/css";
-    link.rel = "stylesheet";
-    link.href = url;
-    link.setAttribute("id", "revealcss")
-    document.getElementsByTagName("head")[0].appendChild(link);
+  console.log("url css link", url);
+  var link = document.createElement("link");
+  link.type = "text/css";
+  link.rel = "stylesheet";
+  link.href = url;
+  link.setAttribute("id", "revealcss")
+  document.getElementsByTagName("head")[0].appendChild(link);
 }

@@ -94,7 +94,6 @@ class main {
         const container = document.createElement("div");
         container.className = "reveal";
         container.style.fontSize = "initial";
-        container.style.overflow = "auto";
         document.body.append(this.$container = container);
 
         // create button and attach listener and prepend to DOCSIE__ROOT container

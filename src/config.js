@@ -13,7 +13,9 @@ export const config = {
     placefalure: "DOCSIE_LIB_REPLACE/assets/error.png"
   },
   revealjs: {
-    css: "https://revealjs.com/css/reveal.css",
-    theme: "https://revealjs.com/css/theme/white.css"
+    // css: "https://revealjs.com/css/reveal.css",
+    // theme: "https://revealjs.com/css/theme/white.css"
+    css: "https://s3.amazonaws.com/lib.docsie.io/css/reveal_css/reveal.css",
+    theme: "https://s3.amazonaws.com/lib.docsie.io/css/reveal_css/theme/white.css"
   }
 }
