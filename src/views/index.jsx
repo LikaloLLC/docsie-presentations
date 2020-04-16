@@ -1,8 +1,5 @@
 import { Component } from "inferno";
 import { autobind } from "decorators";
-import { SearchService } from "services";
-import { Form } from "./Form";
-import { Search } from "./Search";
 
 export class View extends Component {
     constructor(props) {
@@ -11,23 +8,6 @@ export class View extends Component {
             showResults: false,
             results: []
         };
-    }
-    @autobind
-    search() {
-        const results = SearchService.search();
-        results &&
-        this.setState({
-            showResults: results.length > 0,
-            results
-        });
-    }
-    @autobind
-    reset() {
-        SearchService.reset();
-        this.setState({
-            showResults: false,
-            results: false
-        });
     }
     render() {
         const {

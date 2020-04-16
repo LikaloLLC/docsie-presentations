@@ -4,7 +4,7 @@ import { autobind } from "decorators";
 import * as Reveal from "reveal.js";
 // import css1 from "./styles/reveal-css/reveal.scss";
 // import css2 from "./styles/reveal-css/theme/white.scss";
-import css3 from "./styles/presentation.scss";
+import "./styles/presentation.scss";
 
 import {config} from "./config";
 

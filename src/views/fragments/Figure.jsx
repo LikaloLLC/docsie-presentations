@@ -32,8 +32,8 @@ const Image = ({
   src,
   label
 }) => <picture><img
-  width={width || "auto"}
-  height={height || "auto"}
+  width={width || "560"}
+  height={height || "315"}
   src={src}
   onError={(e) => e.target.src = config.urls.placefalure}
   alt={label || ""} /></picture>;

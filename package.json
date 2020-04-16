@@ -3,7 +3,7 @@
   "name": "docsie-presentation-plugin",
   "pluginName": "presentation",
   "description": "Docsie documentation presentation plugin",
-  "main": "./dist/docsie-presentation.js",
+  "main": "../docsie-script-repo/docsie-script-reader/dist/docsie-presentation.js",
   "src": "./src/main.js",
   "scripts": {
     "build": "rollup -c config/prod.js",
